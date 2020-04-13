@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TruYumMVCExercise.Models.Cart>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model == null)
+{
+    @Html.ActionLink("View Menu items", "Customer", "MenuItem")
+}
+<h2>View Cart</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FreeDelivery)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FreeDelivery)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteCart", new { id = item.CartId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Back To Menu", "Customer", "MenuItem")
+
+<br>
+@using (Html.BeginForm("Payment", "MenuItem"))
+{
+    <button type="submit" class="btn btn-success"> Proceed to Pay</button>
+}
